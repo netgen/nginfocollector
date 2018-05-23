@@ -1,0 +1,15 @@
+{
+    "name": "netgen/nginfocollector",
+    "description": "nginfocollector is an eZ Publish legacy extension that integrates GDPR features into eZ Publish legacy collected information",
+    "type": "ezpublish-legacy-extension",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Netgen",
+            "email": "info@netgen.hr"
+        }
+    ],
+    "extra": {
+        "ezpublish-legacy-extension-name": "nginfocollecor"
+    }
+}

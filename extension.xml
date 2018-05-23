@@ -1,0 +1,11 @@
+
+<?xml version="1.0" encoding="utf-8" ?>
+<software>
+    <metadata>
+        <name>nginfocollector</name>
+        <version>1.0</version>
+        <copyright>Copyright (C) 2018 Netgen d.o.o. All rights reserved.</copyright>
+        <license>GPL v2.0</license>
+        <info_url>http://www.netgenlabs.com</info_url>
+    </metadata>
+</software>
