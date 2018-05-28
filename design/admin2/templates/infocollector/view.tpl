@@ -38,6 +38,7 @@
 <input class="button" type="submit" name="RemoveFieldsButton" value="{'Remove selected fields'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
 <input class="button" type="submit" name="AnonymizeFieldsButton" value="{'Anonymize selected fields'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
 <input type="hidden" name="CollectionIDArray[]" value="{$collection.id}" />
+<input type="hidden" name="Handling" value="single" />
 </div>
 {* DESIGN: Control bar END *}</div></div>
 </div>

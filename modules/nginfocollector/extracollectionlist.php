@@ -40,8 +40,10 @@ if( $module->isCurrentAction( 'RemoveCollections' ) && $http->hasPostVariable( '
 if ( $module->isCurrentAction( 'AnonymizeCollections' ) && $http->hasPostVariable( 'CollectionIDArray' ) ) {
 
     $collectionID = $http->postVariable( 'CollectionIDArray' );
+    $handling = $http->postVariable( 'Handling' );
     $http->setSessionVariable( 'CollectionIDArray', $collectionID );
     $http->setSessionVariable( 'ObjectID', $objectID );
+    $http->setSessionVariable( 'Handling', $handling );
 
     $collections = count( $collectionID );
 
@@ -50,6 +52,7 @@ if ( $module->isCurrentAction( 'AnonymizeCollections' ) && $http->hasPostVariabl
     $tpl->setVariable( 'collections', $collections );
     $tpl->setVariable( 'object_id', $objectID );
     $tpl->setVariable( 'remove_type', 'collection' );
+    $tpl->setVariable( 'handling', $handling );
 
     $Result = array();
     $Result['content'] = $tpl->fetch( 'design:infocollector/confirmanonymization.tpl' );
@@ -71,9 +74,15 @@ if ( $module->isCurrentAction( 'ConfirmAnonymization' ) ) {
         }
     }
 
+    $handling = $http->sessionVariable('Handling');
     $http->setSessionVariable( 'CollectionID', null);
     $objectID = $http->sessionVariable( 'ObjectID' );
-    $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
+
+    if ($handling === 'single') {
+        $module->redirectTo( '/infocollector/view/' . $collectionIDArray[0] );
+    } else {
+        $module->redirectTo( '/nginfocollector/extracollectionlist/' . $objectID );
+    }
 }
 
 if ($module->isCurrentAction('CancelAnonymization'))
@@ -128,7 +137,7 @@ if ($module->isCurrentAction('RemoveFields') && $http->hasPostVariable( 'FieldID
     if (count($collectionID) === 1) {
         $collectionID = $collectionID[0];
     } else {
-        $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
+        $module->redirectTo( '/nginfocollector/extracollectionlist/' . $objectID );
     }
 
     if (is_array($fieldIDs)) {
@@ -169,9 +178,14 @@ if ($module->isCurrentAction('SearchCollections'))
 {
     $searchText = $http->postVariable( 'searchText' );
 
+    $searchText = filter_var($searchText, FILTER_SANITIZE_STRING);
+    $searchText = trim($searchText);
+
     $collections = eZExtraInformationCollection::fetchCollectionsBySearchTest($objectID, $searchText, $offset, $limit);
     $numberOfCollections = eZExtraInformationCollection::fetchCollectionsCountBySearchTest($objectID, $searchText);
+
 } else {
+
     $collections = eZInformationCollection::fetchCollectionsList($objectID, /* object id */
         false, /* creator id */
         false, /* user identifier */
