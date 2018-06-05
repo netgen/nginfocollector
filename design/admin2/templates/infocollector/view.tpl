@@ -1,48 +1,43 @@
 <form name="objects" method="post" action={concat( '/nginfocollector/extracollectionlist/', $collection.contentobject_id )|ezurl}>
 
-<div class="context-block">
+    {* DESIGN: Header START *}
+    <div class="box-header">
+        <h1 class="context-title">
+            {'Collection #%collection_id for <%object_name>'|i18n( 'design/admin/infocollector/view',, hash( '%collection_id', $collection.id, '%object_name', $collection.object.name ) )|wash}
+            <span class="small-info">{'Last modified'|i18n( 'design/admin/infocollector/view' )}: {$collection.created|l10n( shortdatetime )}, {if $collection.creator} {$collection.creator.contentobject.name|wash} {else} {'Unknown user'|i18n( 'design/admin/infocollector/view' )} {/if}</span>
+        </h1>
+        {* DESIGN: Mainline *}
+        <div class="header-mainline"></div>
+    {* DESIGN: Header END *}
+    </div>
 
-{* DESIGN: Header START *}<div class="box-header"><div class="box-ml">
+    {* DESIGN: Content START *}
+    <div class="panel">
+        <div class="context-attributes infocollector-attributes">
+            {section var=CollectedAttributes loop=$collection.attributes}
+                <div class="block">
+                    <input type="checkbox" name="FieldIDArray[]" value="{$CollectedAttributes.item.contentobject_attribute_id}">
+                    <label>{$CollectedAttributes.item.contentclass_attribute_name|wash}:</label>
+                    <span class="attribute">{attribute_result_gui view=info attribute=$CollectedAttributes.item}</span>
+                </div>
+                <hr>
+            {/section}
+        </div>
 
-<h1 class="context-title">{'Collection #%collection_id for <%object_name>'|i18n( 'design/admin/infocollector/view',, hash( '%collection_id', $collection.id, '%object_name', $collection.object.name ) )|wash}</h1>
+        {* DESIGN: Content END *}
 
-{* DESIGN: Mainline *}<div class="header-mainline"></div>
+        {* Buttons. *}
+        <div class="controlbar">
+        {* DESIGN: Control bar START *}
+            <input class="btn btn-primary" type="submit" name="RemoveCollectionsButton" value="{'Remove'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
+            <input class="btn btn-primary" type="submit" name="AnonymizeCollectionsButton" value="{'Anonymize'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
+            <hr>
+            <input class="btn btn-primary" type="submit" name="RemoveFieldsButton" value="{'Remove selected fields'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
+            <input class="btn btn-primary" type="submit" name="AnonymizeFieldsButton" value="{'Anonymize selected fields'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
+            <input type="hidden" name="CollectionIDArray[]" value="{$collection.id}" />
+            <input type="hidden" name="Handling" value="single" />
+        </div>
+        {* DESIGN: Control bar END *}
 
-{* DESIGN: Header END *}</div></div>
-
-{* DESIGN: Content START *}<div class="box-ml"><div class="box-mr"><div class="box-content">
-
-<div class="context-information">
-<p class="left modified">{'Last modified'|i18n( 'design/admin/infocollector/view' )}: {$collection.created|l10n( shortdatetime )}, {if $collection.creator} {$collection.creator.contentobject.name|wash} {else} {'Unknown user'|i18n( 'design/admin/infocollector/view' )} {/if} </p>
-</div>
-
-<div class="context-attributes">
-{section var=CollectedAttributes loop=$collection.attributes}
-<div class="block">
-<input type="checkbox" name="FieldIDArray[]" value="{$CollectedAttributes.item.contentobject_attribute_id}">
-<label>{$CollectedAttributes.item.contentclass_attribute_name|wash}:</label>
-{attribute_result_gui view=info attribute=$CollectedAttributes.item}
-</div>
-{/section}
-</div>
-
-{* DESIGN: Content END *}</div></div></div>
-
-{* Buttons. *}
-<div class="controlbar">
-{* DESIGN: Control bar START *}<div class="box-bc"><div class="box-ml">
-<div class="block">
-<input class="button" type="submit" name="RemoveCollectionsButton" value="{'Remove'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
-<input class="button" type="submit" name="AnonymizeCollectionsButton" value="{'Anonymize'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
-<hr>
-<input class="button" type="submit" name="RemoveFieldsButton" value="{'Remove selected fields'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
-<input class="button" type="submit" name="AnonymizeFieldsButton" value="{'Anonymize selected fields'|i18n( 'design/admin/infocollector/view' )}" title="{'Remove collection.'|i18n( 'design/admin/infocollector/view' )}" />
-<input type="hidden" name="CollectionIDArray[]" value="{$collection.id}" />
-<input type="hidden" name="Handling" value="single" />
-</div>
-{* DESIGN: Control bar END *}</div></div>
-</div>
-
-</div>
-
+    </div>
 </form>

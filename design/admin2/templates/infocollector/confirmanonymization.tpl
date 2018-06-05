@@ -23,8 +23,8 @@
 
         {* DESIGN: Control bar START *}
         <form action={concat( $module.functions.extracollectionlist.uri, '/', $object_id )|ezurl} method="post" name="ConfirmAnonymization">
-            <input class="button" type="submit" name="ConfirmAnonymizationButton" value="{'OK'|i18n( 'design/admin/infocollector/confirmremoval' )}" />
-            <input class="button" type="submit" name="CancelAnonymizationButton" value="{'Cancel'|i18n( 'design/admin/infocollector/confirmremoval' )}" />
+            <input class="btn btn-primary" type="submit" name="ConfirmAnonymizationButton" value="{'OK'|i18n( 'design/admin/infocollector/confirmremoval' )}" />
+            <input class="btn btn-default" type="submit" name="CancelAnonymizationButton" value="{'Cancel'|i18n( 'design/admin/infocollector/confirmremoval' )}" />
         </form>
 
     </div>
