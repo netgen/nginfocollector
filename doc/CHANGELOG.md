@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [1.0.0] - Unreleased 
+## [1.0.0] - 2018-06-05 
 ### Added
 - Search through collections.
 - Anonymize collection/collections.
