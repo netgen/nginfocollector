@@ -43,6 +43,7 @@ class eZExtraInformationCollection extends \eZInformationCollection
             return;
         }
 
+        $fieldIDs = array_map('intval',$fieldIDs);
         $fieldIDs = implode(",", $fieldIDs);
 
         $db = eZDB::instance();
@@ -75,6 +76,7 @@ class eZExtraInformationCollection extends \eZInformationCollection
             return;
         }
 
+        $fieldIDs = array_map('intval',$fieldIDs);
         $fieldIDs = implode(",", $fieldIDs);
 
         $db = eZDB::instance();
@@ -102,14 +104,17 @@ class eZExtraInformationCollection extends \eZInformationCollection
 
         $db = eZDB::instance();
 
-        $results = $db->query(
+        $results = $db->arrayQuery(
         "SELECT id
             FROM ezinfocollection
             WHERE id in (SELECT informationcollection_id as id
                          FROM ezinfocollection_attribute
                          WHERE LOWER(data_text) like '%" . $db->escapeString(strtolower($searchText)) . "%')
-            AND contentobject_id = " . (int)$contentObjectID
-            . " LIMIT " . (int)$offset . "," . (int)$limit
+            AND contentobject_id = " . (int)$contentObjectID,
+            array(
+                'offset' => (int)$offset,
+                'limit' => (int)$limit,
+            )
         );
 
         foreach ($results as $result) {
