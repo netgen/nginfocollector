@@ -79,16 +79,17 @@ if ( $module->isCurrentAction( 'ConfirmAnonymization' ) ) {
     $objectID = $http->sessionVariable( 'ObjectID' );
 
     if ($handling === 'single') {
-        $module->redirectTo( '/infocollector/view/' . $collectionIDArray[0] );
+        return $module->redirectTo( '/infocollector/view/' . $collectionIDArray[0] );
     } else {
-        $module->redirectTo( '/nginfocollector/extracollectionlist/' . $objectID );
+        return $module->redirectTo( '/nginfocollector/extracollectionlist/' . $objectID );
     }
 }
 
 if ($module->isCurrentAction('CancelAnonymization'))
 {
     $objectID = $http->sessionVariable( 'ObjectID' );
-    $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
+
+    return $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
 }
 
 if( $module->isCurrentAction( 'ConfirmRemoval' ) )
@@ -104,13 +105,15 @@ if( $module->isCurrentAction( 'ConfirmRemoval' ) )
     }
 
     $objectID = $http->sessionVariable( 'ObjectID' );
-    $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
+
+    return $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
 }
 
 if ($module->isCurrentAction('CancelRemoval'))
 {
     $objectID = $http->sessionVariable( 'ObjectID' );
-    $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
+
+    return $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
 }
 
 if ($module->isCurrentAction('AnonymizeFields') && $http->hasPostVariable( 'FieldIDArray' )) {
@@ -120,14 +123,14 @@ if ($module->isCurrentAction('AnonymizeFields') && $http->hasPostVariable( 'Fiel
     if (count($collectionID) === 1) {
         $collectionID = $collectionID[0];
     } else {
-        $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
+        return $module->redirectTo( '/infocollector/collectionlist/' . $objectID );
     }
 
     if (is_array($fieldIDs)) {
         eZExtraInformationCollection::anonymizeFieldForCollection($collectionID, $fieldIDs);
     }
 
-    $module->redirectTo( '/infocollector/view/' . $collectionID );
+    return $module->redirectTo( '/infocollector/view/' . $collectionID );
 }
 
 if ($module->isCurrentAction('RemoveFields') && $http->hasPostVariable( 'FieldIDArray' )) {
@@ -137,14 +140,14 @@ if ($module->isCurrentAction('RemoveFields') && $http->hasPostVariable( 'FieldID
     if (count($collectionID) === 1) {
         $collectionID = $collectionID[0];
     } else {
-        $module->redirectTo( '/nginfocollector/extracollectionlist/' . $objectID );
+        return $module->redirectTo( '/nginfocollector/extracollectionlist/' . $objectID );
     }
 
     if (is_array($fieldIDs)) {
         eZExtraInformationCollection::deleteAttributesForCollection($collectionID, $fieldIDs);
     }
 
-    $module->redirectTo( '/infocollector/view/' . $collectionID );
+    return $module->redirectTo( '/infocollector/view/' . $collectionID );
 }
 
 if( eZPreferences::value( 'admin_infocollector_list_limit' ) )
