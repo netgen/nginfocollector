@@ -1,6 +1,11 @@
 nginfocollector
 ===============
 
+[![Downloads](https://img.shields.io/packagist/dt/netgen/nginfocollector.svg?style=flat-square)](https://packagist.org/packages/netgen/nginfocollector/stats)
+[![Latest stable](https://img.shields.io/packagist/v/netgen/nginfocollector.svg?style=flat-square)](https://packagist.org/packages/netgen/nginfocollector)
+[![License](https://img.shields.io/github/license/netgen/nginfocollector.svg?style=flat-square)](LICENSE)
+[![PHP](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg?style=flat-square)](https://secure.php.net/)
+
 nginfocollector is an eZ Publish Legacy extension that integrates some features required to fulfill 
 General Data Protection Regulation (GDPR) capabilities into eZ Publish Legacy.
 
